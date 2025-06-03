@@ -7,7 +7,7 @@ import pathlib, os.path
 
 
 root = tk.Tk()
-root.geometry("500x500")
+root.geometry("800x500")
 root.title("Loader win11")
 root.resizable(False, False)
 
@@ -61,7 +61,9 @@ def download(url, file_name):
                         percent = (downloaded / total_length) * 100
 
                         progress_var.set(percent)
-                        lbl_percent.config(text=f"{percent}%")
+                        lbl_percent.config(text=f"{percent:.2f}%")
+
+                        lbl_downlfile.config(text=f"{(downloaded / 1048576):.2f} мб из {(total_length / 1048576):.2f} мб")
 
             messagebox.showinfo("Скачано!", f"Файл успешно скачан в {path}/{file_name}")
             enable_all_btn()
@@ -89,7 +91,7 @@ btn_epic = ttk.Button(text="Epic Games", image=image1, command=lambda: Thread(ta
 btn_epic.place(x=160, y=100, anchor="center", width=80, height=80)
 
 image2 = ImageTk.PhotoImage(file=os.path.join(appdir,'Steam.png'))
-btn_steam = ttk.Button(text="Steam", image=image2, command=lambda: Thread(target=download, kwargs={'url': "https://cdn.akamai.steamstatic.com/client/installer/SteamSetup.exe", 'file_name': "EpicGames.msi"}).start())
+btn_steam = ttk.Button(text="Steam", image=image2, command=lambda: Thread(target=download, kwargs={'url': "https://cdn.akamai.steamstatic.com/client/installer/SteamSetup.exe", 'file_name': "SteamSetup.exe"}).start())
 btn_steam.place(x=240, y=100, anchor="center", width=80, height=80)
 
 image3 = ImageTk.PhotoImage(file=os.path.join(appdir,'VisualStudioCode.png'))
@@ -101,28 +103,31 @@ btn_chrome = ttk.Button(text="Chrome", image=image4, command=lambda: Thread(targ
 btn_chrome.place(x=400, y=100, anchor="center", width=80, height=80)
 
 image5 = ImageTk.PhotoImage(file=os.path.join(appdir,'GPU-Z.png'))
-btn_GPUZ = ttk.Button(text="GPU-Z", image=image5, command=lambda: Thread(target=download, kwargs={'url': "https://9vp10r.spflare.com/b3/9/3/94369910912a7cd334e4458ad4618748/GPU-Z.2.59.0.exe", 'file_name': "GPU-Z.exe"}).start())
-btn_GPUZ.place(x=80, y=200, anchor="center", width=80, height=80)
+btn_GPUZ = ttk.Button(text="GPU-Z", image=image5, command=lambda: Thread(target=download, kwargs={'url': "https://de2-dl.techpowerup.com/files/zE5UH8Rm69mVq4oh7Oq2yw/1745615713/GPU-Z.2.65.1.exe", 'file_name': "GPU-Z.exe"}).start())
+btn_GPUZ.place(x=480, y=100, anchor="center", width=80, height=80)
 
 image6 = ImageTk.PhotoImage(file=os.path.join(appdir,'Telegram.png'))
 btn_Telegram = ttk.Button(text="Telegram", image=image6, command=lambda: Thread(target=download, kwargs={'url': "https://telegram.org/dl/desktop/win64", 'file_name': "Telegram.exe"}).start())
-btn_Telegram.place(x=160, y=200, anchor="center", width=80, height=80)
+btn_Telegram.place(x=560, y=100, anchor="center", width=80, height=80)
 
 image7 = ImageTk.PhotoImage(file=os.path.join(appdir,'OBS.png'))
 btn_OBS = ttk.Button(text="OBS-Studio", image=image7, command=lambda: Thread(target=download, kwargs={'url': "https://cdn-fastly.obsproject.com/downloads/OBS-Studio-30.1.2-Full-Installer-x64.exe", 'file_name': "OBS-Studio.exe"}).start())
-btn_OBS.place(x=240, y=200, anchor="center", width=80, height=80)
+btn_OBS.place(x=640, y=100, anchor="center", width=80, height=80)
 
 
 progress_var = tk.DoubleVar()
 progress_bar = ttk.Progressbar(root, variable=progress_var, maximum=100)
-progress_bar.place(x=50, y=420, width=350)
+progress_bar.place(x=10, y=420, width=500)
 
 lbl_percent = ttk.Label(text="0%", font=("Arial", 12, "bold"))
-lbl_percent.place(x=410, y=420)
+lbl_percent.place(x=525, y=420)
+
+lbl_downlfile = ttk.Label(text="0 мб из 0 мб", font=("Arial", 12, "bold"))
+lbl_downlfile.place(x=525, y=450)
 
 
 
 btn_change_path = ttk.Button(text="Выбрать местоположение", command=change_path)
-btn_change_path.place(x=50, y=450, width=350)
+btn_change_path.place(x=10, y=450, width=500)
 
 root.mainloop()
